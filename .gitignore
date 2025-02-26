@@ -1,1 +1,8 @@
+# para ignorar a pasta tmp
 tmp/
+
+# para ignorar arquivos que com chaves de API
+config.json
+secrets.env
+*.key
+*.env
