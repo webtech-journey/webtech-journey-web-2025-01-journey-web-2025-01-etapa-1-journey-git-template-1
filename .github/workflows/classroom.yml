@@ -1,0 +1,37 @@
+name: Autograding Tests
+
+on:
+  push  # Runs on every push to evaluate student submissions
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Student Submission
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Debug Repository Structure
+      run: |
+        echo "Current Directory:"
+        pwd
+        echo "Repository Contents:"
+        ls -R /home/runner/work/
+
+    - name: Install Dependencies Manually
+      run: |
+        pip install GitPython pytest chardet  # Installing required packages individually
+    
+    - name: Activate All Branches
+      run: |
+        git branch -a  # List all available branches for debugging
+        git checkout feature-a || echo "feature-a not found"
+        git checkout feature-b || echo "feature-b not found"
+        git checkout feature-c || echo "feature-c not found"
+        git checkout main
+
+    - name: Python Autograder
+      id: python-test
+      run: pytest
+
+
